@@ -125,3 +125,30 @@ return result;
 
 
 }
+
+
+
+
+
+
+// Run any think from C#
+public string RunAnyThinkFromCSharp(string fileName, string arguments) {
+  var command = $@"{Application.StartupPath}eadexcel.py  ""{url}""";
+  Process process = new Process();
+  ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+  startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+  startInfo.CreateNoWindow = true;
+  startInfo.UseShellExecute = false;
+  startInfo.RedirectStandardOutput = true;
+  startInfo.FileName = fileName;
+  startInfo.Arguments = arguments;
+  startInfo.StandardOutputEncoding = Encoding.UTF8;
+  process.StartInfo = startInfo;
+  process.Start();
+  string output = process.StandardOutput.ReadToEnd();
+  process.WaitForExit();
+  return output;
+}
+
+// How to Excute Python in Winform
+string output = RunAnyThinkFromCSharp("FullPathToPythonCompiler","FullPathToPythonFile") // FullPathToPythonCompiler=>C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\python.exe, FullPathToPythonFile=>C:\anyFilePathon.py
